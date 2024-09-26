@@ -1,0 +1,21 @@
+
+[tool.poetry]
+name = "boxspread"
+version = "0.1.0"
+description = ""
+authors = []
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+typer = "^0.12.5"
+psycopg = {extras = ["binary"], version = "^3.2.1"}
+faker = "^28.4.1"
+psycopg2-binary = "^2.9.9"
+dbt-postgres = "^1.8.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
