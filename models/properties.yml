@@ -1,7 +1,0 @@
-sources:
-- name: boxspreads
-  database: warehouse
-  schema: public_seeds
-  tables:
-  - name: symbols
-  - name: trades
