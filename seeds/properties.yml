@@ -1,0 +1,23 @@
+version: 2
+
+seeds:
+- name: symbols
+  config:
+    enabled: true
+    full_refresh: true
+    column_types:
+        id: int8
+        day: varchar(10)
+        symbol: text
+- name: trades
+  config:
+    enabled: true
+    full_refresh: true
+    column_types:
+        id: int8
+        day: varchar(10)
+        symbol: text
+        time: text
+        timestamp: int8
+        price: float4
+        volume: int4

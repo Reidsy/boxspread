@@ -1,0 +1,39 @@
+version: 2
+
+models:
+- name: boxspreads
+  description: "Table of boxspreads"
+
+unit_tests:
+- name: test_found_all_boxspreads
+  model: boxspreads
+  given:
+  - input: ref('trades')
+    rows:
+    - { id: 13252, day: "2024-09-19", symbol: "SPX250620C05850000", time: "2024-09-19T17:03:25", timestamp: 1726766136000, price: 290.91, volume: 25 }
+    - { id: 13252, day: "2024-09-19", symbol: "SPX250620C05850000", time: "2024-09-19T17:03:25", timestamp: 1726766136000, price: 290.91, volume: 50 }
+    - { id: 13252, day: "2024-09-20", symbol: "SPX250620C05850000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 280.91, volume: 25 }
+    - { id: 13253, day: "2024-09-20", symbol: "SPX250620C05850000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 280.99, volume: 25 }
+    - { id: 13527, day: "2024-09-20", symbol: "SPX250620P05850000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 281.27, volume: 25 }
+    - { id: 13666, day: "2024-09-20", symbol: "SPX250620C05825000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 296.05, volume: 25 }
+    - { id: 14128, day: "2024-09-20", symbol: "SPX250620P05825000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 272.27, volume: 25 }
+    - { id: 13254, day: "2024-09-20", symbol: "SPX250620C05850000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 282.97, volume: 25 }
+    - { id: 13528, day: "2024-09-20", symbol: "SPX250620P05850000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 283.27, volume: 25 }
+    - { id: 13667, day: "2024-09-20", symbol: "SPX250620C05825000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 294.05, volume: 25 }
+    - { id: 14129, day: "2024-09-20", symbol: "SPX250620P05825000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 275.27, volume: 25 }
+    - { id: 10308, day: "2024-09-20", symbol: "SPX250321C05775000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 245.19, volume: 25 }
+    - { id: 10337, day: "2024-09-20", symbol: "SPX250321P05775000", time: "2024-09-20T19:04:26", timestamp: 1726859066910, price: 212.26, volume: 25 }
+  - input: ref('unique_symbols')
+    rows:
+    - { symbol: "SPX250620C05850000", underlying: "SPX", expiration: "250620", put_call: "C", strike: 05850000 }
+    - { symbol: "SPX250620P05850000", underlying: "SPX", expiration: "250620", put_call: "P", strike: 05850000 }
+    - { symbol: "SPX250620C05825000", underlying: "SPX", expiration: "250620", put_call: "C", strike: 05825000 }
+    - { symbol: "SPX250620P05825000", underlying: "SPX", expiration: "250620", put_call: "P", strike: 05825000 }
+    - { symbol: "SPX250321C05775000", underlying: "SPX", expiration: "250321", put_call: "C", strike: 05775000 }
+    - { symbol: "SPX250321P05775000", underlying: "SPX", expiration: "250321", put_call: "P", strike: 05775000 }
+  expect:
+    rows:
+      # can be any order, just need all four id's in the result.
+      # could also be an array field, or one leg per row, with something to group the rows (although that would potentially allow for more than 4 legs per box)
+      - { leg_1: 13252, leg_2: 13527, leg_3: 13666, leg_4: 14128 }
+      - { leg_1: 13254, leg_2: 13528, leg_3: 13667, leg_4: 14129 }
