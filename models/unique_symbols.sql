@@ -1,7 +1,7 @@
 WITH symbol_parts as (
     SELECT
         symbol
-        , regexp_matches(symbol, '^([A-Z]+)([0-9]{6})([PC])([0-9]{8})$') as parts
+        , regexp_extract(symbol, '^([A-Z]+)([0-9]{6})([PC])([0-9]{8})$', ['underlying', 'expiration', 'put_call', 'strike']) as parts
     FROM {{ ref('symbols') }}
     GROUP BY symbol
 )
@@ -9,10 +9,10 @@ WITH symbol_parts as (
 , final as (
     SELECT
         symbol
-        , parts[1] as underlying
-        , parts[2] as expiration
-        , parts[3] as put_call
-        , parts[4] as strike
+        , parts['underlying'] as underlying
+        , parts['expiration'] as expiration
+        , parts['put_call'] as put_call
+        , parts['strike'] as strike
     FROM symbol_parts
 )
 

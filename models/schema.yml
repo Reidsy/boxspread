@@ -3,8 +3,10 @@ version: 2
 models:
 - name: boxspreads
   description: "Table of boxspreads"
+  config:
+    materialized: table
 
-unit_tests:
+skip_unit_tests: # unit_tests not compatible with python models
 - name: test_found_all_boxspreads
   model: boxspreads
   given:
